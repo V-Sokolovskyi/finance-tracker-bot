@@ -1,7 +1,7 @@
 # Finance Tracker Bot
 🤖A simple Telegram bot for personal finance tracking.
 Add expenses and incomes, categorize transactions, leave notes, and view your history.
-Multilingual (UA/EN/PL) with per-chat command menus.
+Multilingual (UA/EN/PL) with per-chat command menus.🗺
 
 ---
 
@@ -13,24 +13,25 @@ Multilingual (UA/EN/PL) with per-chat command menus.
 - Per-chat command menu localized to the user’s language.
 - SQLite storage out of the box; easy to swap for Postgres later.
 - aiogram v3 & FSM for clean, modular handlers.
-
+  
 ---
 
 ## Table of Contents
-1. [Installation](#installation)
-2. [Environment variables](#environment-variables)
+1. [Installation](#-installation)
+2. [Environment variables](#-environment-variables)
 3. [Project structure](#project-structure)
-4. [Running (polling)](#running-polling)
-5. [Commands (user)](#commands-user)
-6. [Data model (SQLite)](#data-model-sqlite)
-7. [Internationalization (i18n)](#internationalization-i18n)
-8. [License](#license)
+4. [Running (polling)](#-running-polling)
+5. [Commands (user)](#-commands-user)
+6. [Data model (SQLite)](#-data-model-sqlite)
+7. [Internationalization (i18n)](#-internationalization-i18n)
+8. [Roadmap](#-roadmap)
+9. [License](#license)
 
 ---
-
+<a id="installation"></a>
 ## 🧰 Installation
-```bash
 
+```bash
 git clone https://github.com/V-Sokolovskyi/finance-tracker-bot
 cd finance-tracker-bot
 
@@ -40,7 +41,6 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-
 ```
 
 ---
@@ -57,8 +57,8 @@ DATABASE_URL =
 ```
 
 ---
-
-## 🗂️Project structure 
+<a id="project-structure"></a>
+## 🗂️ Project structure 
 ```bash
 
 finance-tracker-bot/
@@ -86,7 +86,7 @@ finance-tracker-bot/
 
 ---
 
-## ▶️ Running (polling)
+## ▶ Running (polling)
 ```bash
 
 python bot.py
@@ -99,25 +99,25 @@ python bot.py
 
 ## 💬 Commands (user)
 
-| Command    | What it does                           
-|------------|-------------------------------------------------------------
-|  `/start`	 | Welcome + sets your language (from DB / Telegram / default).
-|  `/add`	   | Start the add-transaction wizard (amount → category → note).
-|  `/list`	 | Show your recent transactions.
-|  `/lang`	 | Choose language (UA/EN/PL); remembered for your chat.
-|  `/cancel` | Cancel current dialog.
+| Command    | What it does                                                |
+|------------|-------------------------------------------------------------|
+|  `/start`	 | Welcome + sets your language (from DB / Telegram / default).|
+|  `/add`	   | Start the add-transaction wizard (amount → category → note).|
+|  `/list`	 | Show your recent transactions.                              |
+|  `/lang`	 | Choose language (UA/EN/PL); remembered for your chat.       |
+|  `/cancel` | Cancel current dialog.                                      |
 
 ### Owner-only (optional):
 
-| Command    | What it does                           
-|------------|-------------------------------------------------------------
-| `/listall` |Show recent transactions across all users
+| Command    | What it does                                                |
+|------------|-------------------------------------------------------------|
+| `/listall` |Show recent transactions across all users                    |
 
 Owner/whitelist checks are based on Telegram IDs.
 
 ---
 
-## 🗃️ Data model (SQLite)
+## 🗃 Data model (SQLite)
 
 - users: `telegram_id (PK), lang`
 - transactions:
@@ -128,29 +128,26 @@ All DB access uses parameterized queries to avoid SQL injection.
 
 ---
 
-## 🌐 Internationalization (i18n)
+## 🌐 Internationalization (i18n) 
 
 - Texts live in i18n.py as a dictionary, e.g.:
   ```bash
-  
   TEXTS = {
     "hello": { "uk": "...", "en": "...", "pl": "..." },
     "add_amount": { "uk": "...", "en": "...", "pl": "..." },
     ...
   }
-
   ```
   
 - Use helper t(key, lang, **kwargs) everywhere:
   ```bash
   await message.answer(t("add_amount", lang))
-
   ```
 - Users can change language via /lang; the choice is saved to DB and applied to the per-chat command menu
   
 ---
 
-## 🗺️ Roadmap
+## 🗺 Roadmap
 
 - Cloud deploy (Render/Fly/Heroku) with webhook.
 - Categories & analytics (weekly/monthly summaries, charts).
